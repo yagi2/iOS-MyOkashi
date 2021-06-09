@@ -18,4 +18,11 @@ class ViewController: UIViewController, UISearchBarDelegate {
         searchText.delegate = self
         searchText.placeholder = "お菓子の名前を入力してください"
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
+        if let searchWord = searchBar.text {
+            print(searchWord)
+        }
+    }
 }
