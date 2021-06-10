@@ -23,6 +23,19 @@ class ViewController: UIViewController, UISearchBarDelegate {
         view.endEditing(true)
         if let searchWord = searchBar.text {
             print(searchWord)
+            searchOkashi(keyword: searchWord)
         }
+    }
+    
+    func searchOkashi(keyword: String) {
+        guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return
+        }
+        
+        guard let requestUrl = URL(string: "https://sysbird.jp/toriko/api/?apikey=guest&format=json&keyword=\(keywordEncode)&max=10&order=r") else {
+            return
+        }
+        
+        print(requestUrl)
     }
 }
