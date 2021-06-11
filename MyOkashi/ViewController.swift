@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class ViewController: UIViewController, UISearchBarDelegate {
     
@@ -21,6 +22,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
         searchText.placeholder = "お菓子の名前を入力してください"
         
         tableView.dataSource = self
+        tableView.delegate = self
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -95,5 +97,20 @@ extension ViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate, SFSafariViewControllerDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let safariViewController = SFSafariViewController(url: okashiList[indexPath.row].link)
+        
+        safariViewController.delegate = self
+        present(safariViewController, animated: true, completion: nil)
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        dismiss(animated: true, completion: nil)
     }
 }
